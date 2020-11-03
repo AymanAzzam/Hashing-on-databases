@@ -33,6 +33,10 @@ int hashCode(int key){
  */
 int insertItem(int fd,DataItem item){
    //TODO: implement this function
+
+   // Getting the HashCode
+
+   // insert the item in the right bucket
    return 0;
 }
 
@@ -111,10 +115,10 @@ int DisplayFile(int fd){
 		{ 	  perror("some error occurred in pread");
 			  return -1;
 		} else if (result == 0 || data.valid == 0 ) { //empty space found or end of file
-			printf("Bucket: %d, Offset %d:~\n",Offset/BUCKETSIZE,Offset);
+			printf("Bucket: %d, Offset %d:~\n",Offset/int(BUCKETSIZE),Offset);
 		} else {
 			pread(fd,&data,sizeof(DataItem), Offset);
-			printf("Bucket: %d, Offset: %d, Data: %d, key: %d\n",Offset/BUCKETSIZE,Offset,data.data,data.key);
+			printf("Bucket: %d, Offset: %d, Data: %d, key: %d\n",Offset/int(BUCKETSIZE),Offset,data.data,data.key);
 					 count++;
 		}
 	}
