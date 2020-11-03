@@ -46,7 +46,6 @@ int insertItem(int fd,DataItem item){
 	// Searching for an empty bucket starting from the offset
 	while(count < recordsNum)
 	{
-		data.valid = 0;
 		result = pread(fd,&data,sizeof(DataItem), Offset);
 		count++;								//one record accessed
 		

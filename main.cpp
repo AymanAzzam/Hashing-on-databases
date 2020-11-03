@@ -72,6 +72,32 @@ int main(){
    insert(31, 92);   // Bucket 1-8  Searched records = 16    overflow !
    insert(73, 45);   // Bucket 3-9  Searched records = 14
 
+   // Open Addressing Cases
+   // Case #1
+   //insert(91, 20);   // Bucket 1,   Searched records = 1 
+   //insert(82, 80);   // Bucket 2,   Searched records = 1
+   //insert(42, 90);   // Bucket 2,   Searched records = 2
+   //insert(44, 27);   // Bucket 4,   Searched records = 1
+   //insert(31, 40);   // Bucket 1    Searched records = 2   
+   //insert(34, 36);   // Bucket 4,   Searched records = 2
+   //insert(17, 81);   // Bucket 7,   Searched records = 1
+   //insert(13, 28);   // Bucket 3,   Searched records = 2
+   //insert(37, 67);   // Bucket 7,   Searched records = 2
+   //insert(21, 54);   // Bucket 1,   Searched records = 2
+   
+   // Case #2
+   //insert(91, 20);   // Bucket 1,   Searched records = 1 
+   //insert(85, 80);   // Bucket 5,   Searched records = 1
+   //insert(41, 90);   // Bucket 1,   Searched records = 2
+   //insert(10, 27);   // Bucket 0,   Searched records = 1
+   //insert(30, 40);   // Bucket 0    Searched records = 2   
+   //insert(57, 36);   // Bucket 7,   Searched records = 1
+   //insert(11, 81);   // Bucket 1-2  Searched records = 3
+   //insert(13, 28);   // Bucket 3,   Searched records = 2
+   //insert(37, 67);   // Bucket 7,   Searched records = 2
+   //insert(27, 54);   // Bucket 7-8  Searched records = 3
+   
+
    //4. Display the database file again
    DisplayFile(filehandle);
 
