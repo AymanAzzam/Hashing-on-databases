@@ -53,24 +53,24 @@ int main(){
 
   
   //3. Add some data in the table
-   insert(1, 20);
-   insert(2, 70);
-   insert(42, 80);
-   insert(4, 25);
-   insert(12, 44);
-   insert(14, 32);
-   insert(17, 11);
-   insert(13, 78);
-   insert(37, 97);
-   insert(11, 34);
-   insert(22, 730);
-   insert(46, 840);
-   insert(9, 83);
-   insert(21, 424);
-   insert(41, 115);
-   insert(71, 47);
-   insert(31, 92);
-   insert(73, 45);
+   insert(1, 20);    // Bucket 1,   Searched records = 1 
+   insert(2, 70);    // Bucket 2,   Searched records = 1
+   insert(42, 80);   // Bucket 2,   Searched records = 2
+   insert(4, 25);    // Bucket 4,   Searched records = 1
+   insert(12, 44);   // Bucket 2-3  Searched records = 3   overflow !
+   insert(14, 32);   // Bucket 4,   Searched records = 2
+   insert(17, 11);   // Bucket 7,   Searched records = 1
+   insert(13, 78);   // Bucket 3,   Searched records = 2
+   insert(37, 97);   // Bucket 7,   Searched records = 2
+   insert(11, 34);   // Bucket 1,   Searched records = 2
+   insert(22, 730);  // Bucket 2-5  Searched records = 7    overflow !
+   insert(46, 840);  // Bucket 6,   Searched records = 1
+   insert(9, 83);    // Bucket 9,   Searched records = 1
+   insert(21, 424);  // Bucket 1-5  Searched records = 10    overflow !
+   insert(41, 115);  // Bucket 1-6  Searched records = 12    overflow !
+   insert(71, 47);   // Bucket 1-8  Searched records = 15    overflow !
+   insert(31, 92);   // Bucket 1-8  Searched records = 16    overflow !
+   insert(73, 45);   // Bucket 3-9  Searched records = 14
 
    //4. Display the database file again
    DisplayFile(filehandle);

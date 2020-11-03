@@ -32,12 +32,43 @@ int hashCode(int key){
        the  file  descriptor  fd  at  offset  offset.
  */
 int insertItem(int fd,DataItem item){
-   //TODO: implement this function
+	
+	//Definitions
+	struct DataItem data;   //a variable to read in it the records from the db
+	int count = 0;				//No of accessed records
+	int rewind = 0;			//A flag to start searching from the first bucket
+	int hashIndex = hashCode(item.key);  				//calculate the Bucket index
+	int startingOffset = hashIndex*sizeof(Bucket);	//calculate the starting address of the bucket
+	int Offset = startingOffset;						//Offset variable which we will use to iterate on the db
+	ssize_t result;										//result from pread and pwrite
+	int recordsNum = MBUCKETS*RECORDSPERBUCKET;			//number of records
 
-   // Getting the HashCode
+	// Searching for an empty bucket starting from the offset
+	while(count < recordsNum)
+	{
+		data.valid = 0;
+		result = pread(fd,&data,sizeof(DataItem), Offset);
+		count++;								//one record accessed
+		
+		
+		//printf("count = %d, offset = %d, valid = %d",count,Offset,data.valid);
+					 
 
-   // insert the item in the right bucket
-   return 0;
+    	if(result <= 0) { 	  return -1;	}	// an error happened in the pread
+
+		else if(data.valid == 0)				// an unallocated space
+		{
+			// insert the item in the right offset
+   			result = pwrite(fd,&item,sizeof(DataItem), Offset);
+			if(result <= 0) { 	  return -1;	}	// an error happened in the pwrite
+			return count;
+		}
+		//printf("%d + %d = %d",Offset, int(sizeof(DataItem)),(Offset + int(sizeof(DataItem))));
+			
+		Offset = (Offset + int(sizeof(DataItem))) % int(FILESIZE);
+		
+	}
+   return 0;	//the file is full
 }
 
 
