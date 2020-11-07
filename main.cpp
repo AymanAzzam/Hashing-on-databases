@@ -45,15 +45,15 @@ int main(){
 //here we create a sample test to read and write to our database file
 
   //1. Create Database file or Open it if it already exists, check readfile.cpp
-   char fname[] = "openaddressing";
-   
+   char fname[] = "../chaining";
+
    filehandle = createFile(FILESIZE,fname);
   //2. Display the database file, check openAddressing.cpp
    DisplayFile(filehandle);
 
-  
+
   //3. Add some data in the table
-   insert(1, 20);    // Bucket 1,   Searched records = 1 
+   insert(1, 20);    // Bucket 1,   Searched records = 1
    insert(2, 70);    // Bucket 2,   Searched records = 1
    insert(42, 80);   // Bucket 2,   Searched records = 2
    insert(4, 25);    // Bucket 4,   Searched records = 1
@@ -74,35 +74,35 @@ int main(){
 
    // Open Addressing Cases
    // Case #1
-   //insert(91, 20);   // Bucket 1,   Searched records = 1 
+   //insert(91, 20);   // Bucket 1,   Searched records = 1
    //insert(82, 80);   // Bucket 2,   Searched records = 1
    //insert(42, 90);   // Bucket 2,   Searched records = 2
    //insert(44, 27);   // Bucket 4,   Searched records = 1
-   //insert(31, 40);   // Bucket 1    Searched records = 2   
+   //insert(31, 40);   // Bucket 1    Searched records = 2
    //insert(34, 36);   // Bucket 4,   Searched records = 2
    //insert(17, 81);   // Bucket 7,   Searched records = 1
    //insert(13, 28);   // Bucket 3,   Searched records = 2
    //insert(37, 67);   // Bucket 7,   Searched records = 2
    //insert(21, 54);   // Bucket 1,   Searched records = 2
-   
+
    // Case #2
-   //insert(91, 20);   // Bucket 1,   Searched records = 1 
+   //insert(91, 20);   // Bucket 1,   Searched records = 1
    //insert(85, 80);   // Bucket 5,   Searched records = 1
    //insert(41, 90);   // Bucket 1,   Searched records = 2
    //insert(10, 27);   // Bucket 0,   Searched records = 1
-   //insert(30, 40);   // Bucket 0    Searched records = 2   
+   //insert(30, 40);   // Bucket 0    Searched records = 2
    //insert(57, 36);   // Bucket 7,   Searched records = 1
    //insert(11, 81);   // Bucket 1-2  Searched records = 3
    //insert(13, 28);   // Bucket 3,   Searched records = 2
    //insert(37, 67);   // Bucket 7,   Searched records = 2
    //insert(27, 54);   // Bucket 7-8  Searched records = 3
-   
+
 
    //4. Display the database file again
    DisplayFile(filehandle);
 
    //5. Search the database
-   search(13);
+   search(31);
 
    //6. delete an item from the database
    deleteItem(31);

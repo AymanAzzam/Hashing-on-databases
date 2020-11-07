@@ -16,16 +16,18 @@
 #include <stdio.h>
 
 
-#define MBUCKETS  10					//Number of BUCKETS
+#define MBUCKETS  12					//Number of BUCKETS
 #define RECORDSPERBUCKET 2				//No. of records inside each Bucket
-#define BUCKETSIZE sizeof(Bucket)		//Size of the bucket (in bytes)
-#define FILESIZE BUCKETSIZE*MBUCKETS    //Size of the file 
+#define BUCKETSIZE sizeof(ChainingBucket)		//Size of the bucket (in bytes)
+#define FILESIZE BUCKETSIZE*MBUCKETS    //Size of the file
+
+// TODO filesize and bucket size in chaining
 
 
 //Data Record inside the file
 struct DataItem {
    int valid;    //) means invalid record, 1 = valid record
-   int data;     
+   int data;
    int key;
 };
 
@@ -34,6 +36,11 @@ struct DataItem {
 struct Bucket {
 	struct DataItem  dataItem[RECORDSPERBUCKET];
 
+};
+
+struct ChainingBucket {
+    struct DataItem dataItems[RECORDSPERBUCKET];
+    int overflow_index;
 };
 
 //Check the create File
