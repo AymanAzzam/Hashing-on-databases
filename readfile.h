@@ -18,7 +18,7 @@
 
 #define MBUCKETS  12					//Number of BUCKETS
 #define RECORDSPERBUCKET 2				//No. of records inside each Bucket
-#define BUCKETSIZE sizeof(ChainingBucket)		//Size of the bucket (in bytes)
+#define BUCKETSIZE sizeof(Bucket)		//Size of the bucket (in bytes)
 #define FILESIZE BUCKETSIZE*MBUCKETS    //Size of the file
 
 // TODO filesize and bucket size in chaining
