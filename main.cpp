@@ -45,7 +45,7 @@ int main(){
 //here we create a sample test to read and write to our database file
 
   //1. Create Database file or Open it if it already exists, check readfile.cpp
-   char fname[] = "multi-hash";
+   char fname[] = "../chaining";
 
    filehandle = createFile(FILESIZE,fname);
   //2. Display the database file, check openAddressing.cpp
@@ -97,6 +97,43 @@ int main(){
    //insert(37, 67);   // Bucket 7,   Searched records = 2
    //insert(27, 54);   // Bucket 7-8  Searched records = 3
 
+   // Chaining Cases
+   // Case 1
+//   insert(10, 0); // Bucket 0, Searched records = 1
+//   insert(11, 1); // Bucket 1, Searched records = 1
+//   insert(12, 2); // Bucket 2, Searched records = 1
+//   insert(13, 3); // Bucket 3, Searched records = 1
+//   insert(14, 4); // Bucket 4, Searched records = 1
+//   insert(15, 5); // Bucket 5, Searched records = 1
+//   insert(16, 6); // Bucket 6, Searched records = 1
+//   insert(17, 7); // Bucket 7, Searched records = 1
+//   insert(18, 8); // Bucket 8, Searched records = 1
+//   insert(19, 9); // Bucket 9, Searched records = 1
+//   insert(1, 1); // Bucket 1, Searched records = 2
+//   insert(21, 1); // Overflow, Bucket 1 -> Bucket 10, Searched records = 3
+//   deleteItem(1); // 1 empty place in Bucket 1, Searched records = 2
+//   insert(31, 1); //Bucket 1, Searched records = 2
+//   insert(32, 2); //Bucket 2, Searched records = 2
+//   insert(42, 2); //Bucket 2 -> Bucket 11, Searched records = 2 + 2 to detect which overflow bucket is empty
+//   insert(52, 2); //Bucket 2 -> Bucket 11, Searched records = 4
+
+    // Case 2
+//    insert(0, 100); // Bucket 0, Searched records = 1
+//    insert(10, 200); // Bucket 0, Searched records = 2
+//    insert(20, 300); // Bucket 0 -> 10, Searched records = 3
+//    insert(1, 101); // Bucket 1, Searched records = 1
+//    insert(30, 400); // Bucket 0 -> 10, Searched records = 4
+//    insert(40, 500); // Bucket 0 -> 10 -> 11, Searched records = 6
+//    insert(50, 61); // Bucket 0 -> 10 -> 11, Searched records = 6
+//    insert(13, 73); // Bucket 3, Searched records = 1
+//    insert(23, 83); // Bucket 3, Searched records = 2
+//    insert(33, 93); // Bucket 3, Searched records = 4 --- overflow section is full
+//    search(33); // not found
+//    search(23); // searched records = 2
+//    deleteItem(23); // searched records = 2
+//    search(23); // not found
+
+
 
    //4. Display the database file again
    DisplayFile(filehandle);
@@ -128,7 +165,8 @@ void insert(int key,int data){
      item.key = key;
      item.valid = 1;
      int result= insertItem(filehandle,item);  //TODO: implement this function in openAddressing.cpp
-     printf("Insert: No. of searched records:%d\n",abs(result));
+     printf("Inserting %d: No. of searched records:%d\n", key, abs(result));
+     DisplayFile(filehandle);
 }
 
 /* Functionality: search for a data in the table using the key

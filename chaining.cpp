@@ -45,9 +45,9 @@ int emptyOverflowIndex(int fd, int &accessCount) {
     for (int bucketIndex = MBUCKETS - OVERFLOW_BUCKETS; bucketIndex < MBUCKETS; ++bucketIndex) {
         int overflow_index;
         readOverflowIndex(fd, bucketIndex, overflow_index);
+        accessCount++;
         if (overflow_index == 0)
             return bucketIndex;
-        accessCount++;
     }
     return -1;
 }
@@ -60,9 +60,8 @@ int insertIntoBucket(int fd, int bucketIndex, int &accessCount, const DataItem &
         return -1;
     }
     for (int recordIndex = 0; recordIndex < RECORDSPERBUCKET; ++recordIndex) {
-        if (chainingBucket.dataItems[recordIndex].valid == 1) {
-            accessCount++;
-        } else {
+        accessCount++;
+        if (chainingBucket.dataItems[recordIndex].valid != 1) {
             success = writeRecord(fd, bucketIndex, recordIndex, item);
             if (success <= 0) {
                 perror("Can't write a record");
@@ -74,7 +73,7 @@ int insertIntoBucket(int fd, int bucketIndex, int &accessCount, const DataItem &
     if (chainingBucket.overflow_index <= 0) {
         int overflowIndex = emptyOverflowIndex(fd, accessCount);
         if (overflowIndex == -1) {
-            perror("Overflow section is full");
+            printf("-----Overflow section is full-----\n");
             return -1;
         }
         writeRecord(fd, overflowIndex, 0, item);
@@ -84,7 +83,7 @@ int insertIntoBucket(int fd, int bucketIndex, int &accessCount, const DataItem &
         writeOverflowIndex(fd, bucketIndex, overflowIndex);
         if (success <= 0) return -1;
     } else if (insertIntoBucket(fd, chainingBucket.overflow_index, accessCount, item) == -1) {
-        perror("Can't insert the record");
+        printf("-----Can't insert the record-----\n");
     }
     return 0;
 }
@@ -92,7 +91,9 @@ int insertIntoBucket(int fd, int bucketIndex, int &accessCount, const DataItem &
 int insertItem(int fd, DataItem item) {
     int accessCount = 0;
     int hashIndex = hashCode(item.key);
-    insertIntoBucket(fd, hashIndex, accessCount, item);
+    if (insertIntoBucket(fd, hashIndex, accessCount, item) == -1) {
+        printf("-----Can't insert the record-----\n");
+    }
     return accessCount;
 
 }
@@ -154,6 +155,7 @@ int DisplayFile(int fd) {
         }
         printf("Overflow Index: %d\n", bucket.overflow_index);
     }
+    printf("\n");
     return count;
 }
 
