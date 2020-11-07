@@ -45,7 +45,7 @@ int main(){
 //here we create a sample test to read and write to our database file
 
   //1. Create Database file or Open it if it already exists, check readfile.cpp
-   char fname[] = "../chaining";
+   char fname[] = "multi-hash";
 
    filehandle = createFile(FILESIZE,fname);
   //2. Display the database file, check openAddressing.cpp
@@ -133,6 +133,61 @@ int main(){
 //    deleteItem(23); // searched records = 2
 //    search(23); // not found
 
+  // Multiple Hashing Test Cases
+    // Case 1
+  //  insert(0, 20);     // Bucket 0,              Searched records = 1 ~~ Found in first (hash) bucket, first record
+  //  insert(1, 42);     // Bucket 1,              Searched records = 1
+  //  insert(2, 123);    // Bucket 2,              Searched records = 1
+  //  insert(3, 70);     // Bucket 3,              Searched records = 1
+  //  insert(4, 34);     // Bucket 4,              Searched records = 1
+  //  insert(11, 65);    // Bucket 2,              Searched records = 2 ~~ Found in first (hash) bucket, second record as another record was there already
+  //  insert(5, 40);     // Bucket 5,              Searched records = 1
+  //  insert(6, 55);     // Bucket 6,              Searched records = 1
+  //  insert(20, 54);    // Bucket (2) 8,          Searched records = 3 ~~ Found in second (hash) bucket, first record
+  //  insert(7, 452);    // Bucket 7,              Searched records = 1
+  //  insert(8, 85);     // Bucket 8,              Searched records = 2
+  //  insert(9, 5);      // Bucket 9,              Searched records = 1
+  //  insert(94, 981);   // Bucket 1,              Searched records = 2
+  //  insert(157, 845);  // Bucket (1, 1->2) 3,    Searched records = 8 ~~ Found using open addressing after both hashing functions resulted in collisions
+  //  search(11);        // Found,                 Searched records = 2
+  //  search(123);       // NOT found,             Searched records = 26
+  //  insert(98, 532);   // Bucket 5,              Searched records = 2
+  //  insert(56, 21);    // Bucket 11,             Searched records = 1
+  //  insert(455, 10);   // Bucket (2) 11,         Searched records = 4   
+  //  insert(100, 91);   // Bucket (1) 4,          Searched records = 4
+  //  insert(120, 81);   // Bucket (3) 0,          Searched records = 4
+  //  insert(452, 54);   // Bucket (11, 8) 9,      Searched records = 6
+  //  insert(74, 524);   // Bucket (11, 2->5) 6,   Searched records = 12
+  //  insert(231, 852);  // Bucket (6, 3->6) 7,    Searched records = 12
+  //  insert(23, 563);   // Bucket (5, 11->9) 10,  Searched records = 25
+  //  insert(42, 52);    // Bucket (6, 6->9) 10,   Searched records = 12
+  //  insert(201, 63);   // Bucket (3, 9->8),      Searched records = 26 ~~ NOT added, already full
+  //  deleteItem(120);   // Removed from bucket 0, Searched records 4
+  //  insert(157, 981);  // Bucket (1, 1->11) 0,   Searched records = 26
+
+
+    // Case 2
+  //  insert(52, 20);    // Bucket 7,              Searched records = 1
+  //  insert(1, 42);     // Bucket 1,              Searched records = 1
+  //  insert(26, 123);   // Bucket 8,              Searched records = 1
+  //  insert(3, 70);     // Bucket 3,              Searched records = 1
+  //  insert(40, 34);    // Bucket 4,              Searched records = 1
+  //  insert(119, 65);   // Bucket 11,             Searched records = 1
+  //  insert(503, 40);   // Bucket 8,              Searched records = 2
+  //  insert(39, 55);    // Bucket 0,              Searched records = 1
+  //  search(20);        // NOT found,             Searched records = 26
+  //  insert(20, 54);    // Bucket 2,              Searched records = 1
+  //  search(20);        // Found,                 Searched records = 1
+  //  insert(71, 452);   // Bucket (8) 11,         Searched records = 4
+  //  insert(48, 85);    // Bucket 0,              Searched records = 2
+  //  insert(79, 5);     // Bucket 4,              Searched records = 2
+  //  insert(94, 981);   // Bucket 1,              Searched records = 2
+  //  insert(157, 845);  // Bucket (1, 1) 2,       Searched records = 6
+  //  deleteItem(20);    // Removed from bucket 2, Searched records = 1
+  //  search(20);        // NOT found,             Searched records = 26
+  //  insert(2, 14);     // Bucket 2,              Searched records = 1
+  //  search(2);         // Found,                 Searched records = 1
+
 
 
    //4. Display the database file again
@@ -166,7 +221,7 @@ void insert(int key,int data){
      item.valid = 1;
      int result= insertItem(filehandle,item);  //TODO: implement this function in openAddressing.cpp
      printf("Inserting %d: No. of searched records:%d\n", key, abs(result));
-     DisplayFile(filehandle);
+    //  DisplayFile(filehandle);
 }
 
 /* Functionality: search for a data in the table using the key
