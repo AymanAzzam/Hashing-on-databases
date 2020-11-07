@@ -5,17 +5,18 @@ This is an implementation of Open Addressing, Chaining and multiHashing on datab
 
 Create a c++ project in any IDE(Eclipse, VS, codeblocks, ...) and use it or use one of the following command lines on linux:
 
-    For open addressing:
+   For open addressing:
+    
 ```
 g++ main.cpp readfile.cpp openAddressing.cpp -o output
 ```
 
-    For chaining:
+   For chaining:
 ```
 g++ main.cpp readfile.cpp chaining.cpp -o output
 ```
 
-    For multiple hashing:
+   For multiple hashing:
 ```
 g++ main.cpp readfile.cpp multipleHashing.cpp -o output
 ```
