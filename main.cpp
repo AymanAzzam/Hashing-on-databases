@@ -128,7 +128,8 @@ void insert(int key,int data){
      item.key = key;
      item.valid = 1;
      int result= insertItem(filehandle,item);  //TODO: implement this function in openAddressing.cpp
-     printf("Insert: No. of searched records:%d\n",abs(result));
+     printf("Inserting %d: No. of searched records:%d\n", key, abs(result));
+     DisplayFile(filehandle);
 }
 
 /* Functionality: search for a data in the table using the key
