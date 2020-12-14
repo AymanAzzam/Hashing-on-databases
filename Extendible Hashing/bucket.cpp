@@ -18,6 +18,8 @@ void Bucket::setId(int iid) {   id = iid;                   }
 
 int Bucket::getId()         {   return id;                  }
 
+int Bucket::getSize()       {   return size;                }
+
 // return true if the key is exist, false if isn't exist
 bool Bucket::searchItem(int key)    {
     for(int i=0; i<size; i++)

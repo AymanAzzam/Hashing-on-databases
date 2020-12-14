@@ -26,7 +26,8 @@ class Bucket {
         int getLocalDepth();                            
         void incDepth();                                
         void setId(int iid);                                   
-        int getId();                                    
+        int getId();
+        int getSize();                                    
         void printKeys();                               
         void printData();                                
         void print();                                      
