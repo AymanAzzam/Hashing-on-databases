@@ -1,12 +1,11 @@
 #include "directory.h"
-#include <math.h>
 #include <iostream>
 
 using namespace std;
 
 
 // return n Least Significant Bits (LSB) for the key
-int hashing(int key, int n)     {   return key % (int) (pow(2,n)+0.5);  }
+int hashing(int key, int n)     {   return key % (1 << n);  }
 
 int Directory::getGlobalDepth() {   return global_depth;                }
 
