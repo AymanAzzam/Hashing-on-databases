@@ -73,7 +73,7 @@ Bucket** Bucket::split()
     
     for (int i = 0; i < size; ++i)
     {
-        if (hashing(data[i].getKey(), local_depth) == newBuckets[0]->getId())
+        if (hashing(data[i].getKey(), local_depth + 1) == newBuckets[0]->getId())
         {
             newBuckets[0]->insertItem(data[i]);
         }

@@ -1,3 +1,7 @@
+#include <iostream> 
+
+using namespace std;
+
 int hashing(int key, int n);
 
 const int BUCKETSIZE = 3;

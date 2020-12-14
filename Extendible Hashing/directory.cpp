@@ -30,15 +30,21 @@ bool Directory::insertItem(DataItem item)
 
     if (oldBucket->isFull())    // overflow -> split bucket
     {
+        cout << "Splitting bucket " << hash << endl;
+
         Bucket** newBuckets = oldBucket->split();
 
         if (oldBucket->getLocalDepth() == global_depth)     // expand directory
         {
+            cout << "Expanding directories" << endl;
+
             expand(newBuckets);
             hash = hashing(item.getKey(), global_depth);   //update hash value to that after expansion
         }
         else        // directory expansion not required
         {
+            cout << "Not expanding directories" << endl;
+
             buckets[newBuckets[0]->getId()] = newBuckets[0];
             buckets[newBuckets[1]->getId()] = newBuckets[1];
         }
@@ -46,7 +52,7 @@ bool Directory::insertItem(DataItem item)
         delete[] newBuckets;
     }
     // splitting bucket not required or handled
-    if (oldBucket->insertItem(item))
+    if (buckets[hash]->insertItem(item))
     {
         cout << "Record ";
         item.print();
@@ -63,7 +69,7 @@ bool Directory::insertItem(DataItem item)
     
 }
 
-// expand (double) the directories and 
+// expand (double) the directories and update their pointers to buckets
 void Directory::expand(Bucket** newBuckets)
 {
     int newSize = (1<<(global_depth+1));
@@ -78,11 +84,10 @@ void Directory::expand(Bucket** newBuckets)
         }
         else
         {
-            /* expanded[i] = */ expanded[1 + (1<<global_depth)] = buckets[i];
+            expanded[i] = expanded[i + (1<<global_depth)] = buckets[i];
         }
-        
     }
-    buckets = expanded;
+    swap(buckets, expanded);
     delete[] expanded;
 
     ++global_depth;
@@ -102,7 +107,7 @@ void Directory::printKeys()
 void Directory::printData()
 {
    for(int i=0; i<size; i++)
-        if(buckets[i] != nullptr)
+        // if(buckets[i] != nullptr)
         {
             cout<<"id = "<<buckets[i]->getId()<<", Data = ";
             buckets[i]->printData();
