@@ -117,11 +117,15 @@ void Directory::printData()
 void Directory::print()
 {
     for(int i=0; i<size; i++)
+    {
+        cout<<"-----Dir"<<i<<"-----";
         if(buckets[i] != nullptr)
         {
             cout<<"id = "<<buckets[i]->getId()<<": ";
             buckets[i]->print();
         }
+    }
+    cout<<endl<<endl;
 }
 
 
@@ -131,7 +135,7 @@ bool Directory::searchItem(int key)
 
     if(buckets[hash] != nullptr && buckets[hash]->searchItem(key))
     {
-        cout<<"Item "<<key<<" found at bucket id "<<hash<<endl;
+        cout<<"Item "<<key<<" found at Directory "<<hash<<endl<<endl;
         return true;
     }
     cout<<"Item "<<key<<" not found"<<endl;
@@ -147,25 +151,27 @@ int Directory::deleteItem(int key)
     if(buckets[hash] == nullptr)    return 0;
     
     deleted = buckets[hash]->deleteItem(key);
-    if(deleted)
+    if(deleted>0)   cout<<"Item "<<key<<" was deleted from Dir"<<hash<<endl;
+    
+    if(deleted && size>2)
     {
-        for(int i=1; i<size; i+=2)
+        for(int i=0,j= size/2; i<size/2; i++,j++)
         {
-            if(buckets[i-1] != buckets[i] && buckets[i]->getSize() == 0)
+            if(buckets[i] != buckets[j] && buckets[i]->getSize() == 0)
             {
                 delete buckets[i];
-                buckets[i] = buckets[i-1];
+                buckets[i] = buckets[j];
             }
-            else if(buckets[i-1] != buckets[i] && buckets[i-1]->getSize() == 0)
+            else if(buckets[i] != buckets[j] && buckets[j]->getSize() == 0)
             {
-                delete buckets[i-1];
-                buckets[i-1] = buckets[i];
+                delete buckets[j];
+                buckets[j] = buckets[i];
             }
 
-            if(buckets[i] != nullptr && buckets[i-1] == buckets[i])  counter++;
+            if(buckets[i] != nullptr && buckets[j] == buckets[i])  counter++;
         }
 
-        if( size == counter* 2) shrink();
+        if(size == counter* 2) shrink();
     }
     return deleted;
 }
@@ -176,12 +182,12 @@ void Directory::shrink()
     int new_size = size/2;
     Bucket** new_bucket = new Bucket*[new_size];
 
-    for(int i=0,j=0;i<size;i+=2,j++)
+    for(int i=0; i<size/2; i++)
     {
-        new_bucket[j] = buckets[i];
-        delete buckets[i];
+        new_bucket[i] = buckets[i];
     }
 
+    cout<<"Done Shrinking"<<endl<<endl;
     delete[] buckets;
     buckets = new_bucket;
     size = new_size;

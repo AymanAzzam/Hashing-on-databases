@@ -37,5 +37,28 @@ int main()
     d.setKey(60);
     dir.insertItem(d);
     dir.print();
-    
+
+    dir.searchItem(3);
+
+    dir.deleteItem(50);
+    dir.print();
+
+    dir.deleteItem(3);
+    dir.print();
+
+    dir.deleteItem(6);    
+    dir.print();
+
+    dir.deleteItem(5);    
+    dir.print();
+
+    dir.deleteItem(40);    
+    dir.print();
+
+    dir.deleteItem(4);    
+    dir.print();
+
+    dir.deleteItem(60);    
+    dir.print();
+
 }
