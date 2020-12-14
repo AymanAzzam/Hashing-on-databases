@@ -100,7 +100,7 @@ int Directory::deleteItem(int key)
                 buckets[i-1] = buckets[i];
             }
 
-            if(buckets[i-1] == buckets[i])  counter++;
+            if(buckets[i] != nullptr && buckets[i-1] == buckets[i])  counter++;
         }
 
         if( size == counter* 2) shrink();
