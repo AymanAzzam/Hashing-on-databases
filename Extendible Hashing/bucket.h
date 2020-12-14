@@ -1,3 +1,5 @@
+int hashing(int key, int n);
+
 const int BUCKETSIZE = 3;
 
 class DataItem {
@@ -9,6 +11,7 @@ class DataItem {
         void setData(int d) {   data = d;       }
         int getKey()        {   return key;     }
         int getData()       {   return data;    }
+        void print()        {   cout << "(" << key << "," << data << ")";  }
 };
 
 class Bucket {
@@ -18,13 +21,13 @@ class Bucket {
     int local_depth;
 
     public:
-        Bucket(int iid);                                
+        Bucket(int iid, int ld = 1);                                
         bool insertItem(DataItem item);                 
         int deleteItem(int key);                       
         bool searchItem(int key);                       
         bool isFull();                                  
         int getLocalDepth();                            
-        void incDepth();                                
+        Bucket** split();                                
         void setId(int iid);                                   
         int getId();                                    
         void printKeys();                               

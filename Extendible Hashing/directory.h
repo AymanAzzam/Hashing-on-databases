@@ -3,6 +3,7 @@
 class Directory {
     Bucket** buckets;
     int global_depth;
+    int size;
 
     public:
         Directory();        //Done
@@ -10,7 +11,7 @@ class Directory {
         bool deleteItem(int key);  //we maybe need to merge buckets or decrement the global depth
         bool searchItem(int key); //Done
         int getGlobalDepth(); //Done
-        void expand(int bucket_id);
+        void expand(Bucket** newBuckets);
         void shrink();
         void printKeys(); //Done
         void printData(); //Done

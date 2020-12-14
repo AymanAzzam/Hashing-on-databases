@@ -3,16 +3,17 @@
 
 using namespace std;
 
+// return n Least Significant Bits (LSB) for the key
+int hashing(int key, int n)     {   return key % (1 << n);  }
+
 // construct empty bucket with depth = 1
-Bucket::Bucket(int iid = 0)
-{   size = 0;   local_depth = 1;    id =iid;    }
+Bucket::Bucket(int iid, int ld)
+{   size = 0;   local_depth = 1;    id = iid;    }
 
 // return true if the bucket is full, false otherwise
 bool Bucket::isFull()       {   return size == BUCKETSIZE;  }
 
 int Bucket::getLocalDepth() {   return local_depth;         }
-
-void Bucket::incDepth()     {   local_depth += 1;           }
 
 void Bucket::setId(int iid) {   id = iid;                   }
 
@@ -60,6 +61,27 @@ bool Bucket::insertItem(DataItem item)
     
     data[size++] = item;
     return true; 
+}
+
+Bucket** Bucket::split()
+{
+    Bucket** newBuckets = new Bucket*[2];
+    newBuckets[0] = new Bucket(id, local_depth + 1);
+    newBuckets[1] = new Bucket(id + (1<<local_depth), local_depth + 1);
+    
+    for (int i = 0; i < size; ++i)
+    {
+        if (hashing(data[i].getKey(), local_depth) == newBuckets[0]->getId())
+        {
+            newBuckets[0]->insertItem(data[i]);
+        }
+        else
+        {
+            newBuckets[1]->insertItem(data[i]);
+        }
+        
+    }
+    return newBuckets;
 }
 
 /* return the number of deleted Items
