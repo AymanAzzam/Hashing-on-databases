@@ -8,7 +8,7 @@ int hashing(int key, int n)     {   return key % (1 << n);  }
 
 // construct empty bucket with depth = 1
 Bucket::Bucket(int iid, int ld)
-{   size = 0;   local_depth = 1;    id = iid;    }
+{   size = 0;   local_depth = ld;    id = iid;    }
 
 // return true if the bucket is full, false otherwise
 bool Bucket::isFull()       {   return size == BUCKETSIZE;  }
@@ -20,6 +20,8 @@ void Bucket::setId(int iid) {   id = iid;                   }
 int Bucket::getId()         {   return id;                  }
 
 int Bucket::getSize()       {   return size;                }
+
+DataItem Bucket::getData(int index){   return data[index];               }
 
 // return true if the key is exist, false if isn't exist
 bool Bucket::searchItem(int key)    {

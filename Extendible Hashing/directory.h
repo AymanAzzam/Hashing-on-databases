@@ -1,3 +1,6 @@
+#ifndef DIRECTORY_H_
+#define DIRECTORY_H_
+
 #include "bucket.h"
 
 class Directory {
@@ -11,6 +14,8 @@ class Directory {
         int deleteItem(int key);  //we maybe need to merge buckets or decrement the global depth
         bool searchItem(int key); //Done
         int getGlobalDepth(); //Done
+        int getSize();
+        Bucket** getBuckets();
         void expand(Bucket** newBuckets);
         void shrink();
         void printKeys(); //Done
@@ -18,3 +23,5 @@ class Directory {
         void print(); //Done
         ~Directory(); //Done
 };
+
+#endif

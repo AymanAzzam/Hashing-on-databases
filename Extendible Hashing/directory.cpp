@@ -6,6 +6,10 @@ using namespace std;
 
 int Directory::getGlobalDepth() {   return global_depth;    }
 
+int Directory::getSize()        {   return size;            }
+
+Bucket** Directory::getBuckets(){   return buckets;         }
+
 Directory::Directory()
 {   
     global_depth = 1;  
@@ -26,15 +30,15 @@ Directory::~Directory()
 bool Directory::insertItem(DataItem item)
 {
     int hash = hashing(item.getKey(), global_depth);
-    Bucket* oldBucket = buckets[hash];
+    //Bucket* oldBucket = buckets[hash];
 
-    if (oldBucket->isFull())    // overflow -> split bucket
+    while(buckets[hash]->isFull())    // overflow -> split bucket
     {
         cout << "Splitting bucket " << hash << endl;
 
-        Bucket** newBuckets = oldBucket->split();
+        Bucket** newBuckets = buckets[hash]->split();
 
-        if (oldBucket->getLocalDepth() == global_depth)     // expand directory
+        if(buckets[hash]->getLocalDepth() == global_depth)     // expand directory
         {
             cout << "Expanding directories" << endl;
 

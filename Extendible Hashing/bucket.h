@@ -1,3 +1,6 @@
+#ifndef BUCKET_H_
+#define BUCKET_H_
+
 #include <iostream> 
 
 using namespace std;
@@ -29,7 +32,8 @@ class Bucket {
         bool insertItem(DataItem item);                 
         int deleteItem(int key);                       
         bool searchItem(int key);                       
-        bool isFull();                                  
+        bool isFull();
+        DataItem getData(int index);                                  
         int getLocalDepth();                            
         Bucket** split();                                
         void setId(int iid);                                   
@@ -39,3 +43,5 @@ class Bucket {
         void printData();                                
         void print();                                      
 };
+
+#endif
